@@ -12,16 +12,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.gabrielspassos.poc.config.TransactionConfig.DELIMITER;
+import static com.gabrielspassos.poc.config.TransactionConfig.FIELD_NAMES;
+import static com.gabrielspassos.poc.config.TransactionConfig.OUTPUT_FILE_NAME;
 
 @Component
 public class TransactionWriter {
-
-    private static final String FILE_NAME = "src/main/resources/transaction.csv";
-    private static final String DELIMITER = ";";
-    private static final List<String> FIELD_NAMES = Arrays.asList("id", "date", "cardNumber", "amount");
 
     @Qualifier("transactionsCsvWriter")
     @Bean
@@ -37,7 +35,7 @@ public class TransactionWriter {
         FlatFileHeaderCallback headerCallback = headerWriter -> headerWriter.write(getHeader());
         FlatFileItemWriter<TransactionOutput> writer = new FlatFileItemWriter<>();
 
-        writer.setResource(new FileSystemResource(FILE_NAME));
+        writer.setResource(new FileSystemResource(OUTPUT_FILE_NAME));
         writer.setHeaderCallback(headerCallback);
         writer.setLineAggregator(lineAggregator);
         return writer;

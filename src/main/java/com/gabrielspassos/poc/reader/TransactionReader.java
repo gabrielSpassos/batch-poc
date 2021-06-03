@@ -20,18 +20,18 @@ import static com.gabrielspassos.poc.config.TransactionConfig.CARD_NUMBER_END_IN
 import static com.gabrielspassos.poc.config.TransactionConfig.CARD_NUMBER_START_INDEX;
 import static com.gabrielspassos.poc.config.TransactionConfig.DATE_END_INDEX;
 import static com.gabrielspassos.poc.config.TransactionConfig.DATE_START_INDEX;
+import static com.gabrielspassos.poc.config.TransactionConfig.FIELD_NAMES;
 import static com.gabrielspassos.poc.config.TransactionConfig.ID_END_INDEX;
 import static com.gabrielspassos.poc.config.TransactionConfig.ID_START_INDEX;
+import static com.gabrielspassos.poc.config.TransactionConfig.INPUT_FILE_NAME;
 
 @Service
 @Qualifier("transactionReader")
 public class TransactionReader {
 
-    private static final String FILE_NAME = "transaction.txt";
-
     public ItemReader<TransactionInput> reader() {
         FlatFileItemReader<TransactionInput> csvFileReader = new FlatFileItemReader<>();
-        csvFileReader.setResource(new ClassPathResource(FILE_NAME));
+        csvFileReader.setResource(new ClassPathResource(INPUT_FILE_NAME));
 
         LineMapper<TransactionInput> studentLineMapper = createTransactionLineMapper();
         csvFileReader.setLineMapper(studentLineMapper);
@@ -54,7 +54,7 @@ public class TransactionReader {
     private FixedLengthTokenizer createTransactionLineTokenizer() {
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
 
-        tokenizer.setNames("id", "date", "cardNumber", "amount");
+        tokenizer.setNames(FIELD_NAMES.toArray(String[]::new));
         tokenizer.setColumns(
                 new Range(ID_START_INDEX, ID_END_INDEX),
                 new Range(DATE_START_INDEX, DATE_END_INDEX),
