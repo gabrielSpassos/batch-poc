@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mysql:
+    container_name: batch-mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: db
+      TZ: America/Sao_Paulo
+    ports:
+      - 3306:3306

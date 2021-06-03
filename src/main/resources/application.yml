@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: spring-batch-poc
+  datasource:
+    url: jdbc:mysql://localhost:3306/db?allowPublicKeyRetrieval=true&useSSL=false
+    password: admin
+    username: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maxActive: 10
+    initialSize: 1
+    minIdle: 1
+    maxIdle: 1
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  jpa:
+    generate-ddl: false
+    properties:
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  hibernate:
+    naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  show-sql: true
+  batch:
+    initialize-schema: ALWAYS
