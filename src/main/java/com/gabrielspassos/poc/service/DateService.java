@@ -5,10 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class DateService {
 
-    private static final String DATE_PATTERN = "dd/MM/yyyy";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    private static final DateTimeFormatter BR_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static LocalDate convertToLocalDate(String date) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        return LocalDate.parse(date, dateTimeFormatter);
+    public static String formatDate(String date) {
+        LocalDate localDate = LocalDate.parse(date, DATE_FORMATTER);
+        return BR_DATE_FORMATTER.format(localDate);
     }
 }

@@ -33,7 +33,7 @@ public class TransactionItemProcessor implements ItemProcessor<TransactionInput,
     private TransactionOutput buildTransactionOutput(TransactionInput transactionInput) {
         return TransactionOutputBuilder.build(
                 transactionInput.getId(),
-                DateService.convertToLocalDate(transactionInput.getDate()),
+                DateService.formatDate(transactionInput.getDate()),
                 transactionInput.getCardNumber(),
                 formatAmount(transactionInput.getAmount())
         );
